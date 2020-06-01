@@ -14,15 +14,20 @@ namespace IdentityServer
             new IdentityResource[]
             { 
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+              
             };
 
         public static IEnumerable<ApiResource> Apis =>
             new ApiResource[] 
             { 
-                new ApiResource("houseoftzapi","house of tz api")
+                new ApiResource("cbtapi","CBT API")
                 {
                     ApiSecrets = { new Secret("EF61AF64-D3ED-4F70-AEF9-5E45BB3AA6F6".Sha256()) }
+                },
+                 new ApiResource("elearningapi","ELEARNING API")
+                {
+                    ApiSecrets = { new Secret("A5C75AFB-4BB3-4672-948D-7B792E9BFE96".Sha256()) }
                 }
             };
         
@@ -36,12 +41,12 @@ namespace IdentityServer
                     UpdateAccessTokenClaimsOnRefresh = true,
                       AllowedScopes =  new List<string> {
 
-                          "houseoftzapi",
+                          "cbtapi",
                           IdentityServerConstants.StandardScopes.OpenId,
                           IdentityServerConstants.StandardScopes.Profile,
                       },
-                      ClientName = "House of TZ Client",
-                      ClientId = "houseoftz",
+                      ClientName = "CBT Client",
+                      ClientId = "CBT",
                       AllowedGrantTypes = GrantTypes.Code,
                       ClientSecrets = new List<Secret>{
                            new Secret("AE240F15-9CB5-4633-8798-93DEC792B368".Sha512()),
@@ -49,12 +54,16 @@ namespace IdentityServer
                       RequirePkce = true,
                       RedirectUris = new List<string>()
                       {
-                        "https://localhost:44389/signin-oidc"
+                        "https://localhost:3000/signin-oidc"
                       },
                       PostLogoutRedirectUris = new List<string>()
                       {
-                        "https://localhost:44389/signout-callback-oidc"
+                        "https://localhost:3000/signout-callback-oidc"
                       },
+                      AllowedCorsOrigins = new List<string>()
+                      {
+                          "https://localhost:3000"
+                      }
 
 
                 }
